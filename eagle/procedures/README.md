@@ -10,6 +10,9 @@ Procedures to be done before flight to ensure a safe UAM operation.
 ### 2.1 [Optitrack fusion](optitrack.md)
 Procedure to fuse position of the optitrack with the PX4's EKF2 module.
 
+### 2.2 [URDF Creation](urdf_creation.md)
+How to create URDF's from a Solidworks assembly
+
 ### 2.2 [Troubleshooting](troubleshooting.md)
 Some knwon issues and how to fix them.
 
