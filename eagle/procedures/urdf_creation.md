@@ -59,7 +59,7 @@ This geometry consists of an axis and a coordinate system for each joint.
 Besides, it also needs a coordinate system representing the global origin.
 Even though this geometry can be created automatically by the tool, we recommend to do it manually.
 
-The reference geometry for the 2-DOF arm is the following:
+The reference geometry chosen for the 2-DOF arm is shown in Fig 3.
 <figure align="center">
   <img src="img/reference_geometry.png" alt="Reference geometry" width="200"/>
   <img src="img/reference_geometry_objects.png" alt="Reference geometry objects" width="100"/>
@@ -71,20 +71,24 @@ We must be sure that an axis of a joint's coordinate system coincides with the a
 We have chosen to follow the Denavit-Hartenberg convention, which selects the z-axis to coincide with the joint's axis of rotation.
 The `axis` objects are used by the URDF exported to know that the joint is of `revolute` type.
 
+### 2.3 Creating the URDF
+To create the URDF we do `Tools > Export as URDF`. 
+After this, we proceed to create the robot's kinematic tree:
 
+1. Choose the subassembly that constitutes the base link, the coordinate system that represents the global origin and the number of child links (1 in our case).
+2. Configure the child links. For each child link you should do:
+   1. Assign a name to the link.
+   2. Assign a name to the joint that unites the previous link (parent) to the current link (child).
+   3. Choose the reference coordinate system for the joint as well as its axis.
+   4. Choose the joint type (revolute in our case).
+   5. Choose the subassembly for the current link.
+   6. Add number of child links.
+3. When finished to add all the links in the tree, click `Preview and Export...`
 
-```mermaid
-  graph TD;
-      subgraph Robot
-      A[CS: Global_Origin]-- joint1/origin -->B[CS: Joint1_Origin];
-      A-->C([base_link/inertial]);
-      B-- joint2/origin -->E[CS: Joint2_Origin];
-      B-->F([link1/inertial]);
-      E-->H([link2/inertial]);
-      end
-```
+If the SW assembly has been configured properly, we should be done by clicking `Next` until the end of the process, where it asks us for a folder to save the URDF.
+### 2.4 Understanding the exported URDF
 
-### 2.3 Exported URDF
+**URDF file:**
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -250,4 +254,15 @@ The `axis` objects are used by the URDF exported to know that the joint is of `r
       velocity="0" />
   </joint>
 </robot>
+```
+
+```mermaid
+  graph TD;
+      subgraph Robot
+      A[CS: Global_Origin]-- joint1/origin -->B[CS: Joint1_Origin];
+      A-->C([base_link/inertial]);
+      B-- joint2/origin -->E[CS: Joint2_Origin];
+      B-->F([link1/inertial]);
+      E-->H([link2/inertial]);
+      end
 ```
